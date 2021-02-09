@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Authorization;
 
 use Spatie\LaravelPackageTools\Package;
@@ -8,6 +10,12 @@ use Tipoff\Authorization\Commands\AuthorizationCommand;
 
 class AuthorizationServiceProvider extends PackageServiceProvider
 {
+    public function boot()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        parent::boot();
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -17,9 +25,6 @@ class AuthorizationServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('authorization')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_authorization_table')
-            ->hasCommand(AuthorizationCommand::class);
+            ->hasConfigFile();
     }
 }
