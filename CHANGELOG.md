@@ -6,3 +6,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - initial release
 - migrations loaded via package
+
+## 1.0.1 - 2021-02-11
+
+- allow publishable migration from true source
