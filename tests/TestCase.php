@@ -2,6 +2,7 @@
 
 namespace Tipoff\Authorization\Tests;
 
+use Spatie\Permission\PermissionServiceProvider;
 use Tipoff\Authorization\AuthorizationServiceProvider;
 use Tipoff\Support\SupportServiceProvider;
 use Tipoff\TestSupport\BaseTestCase;
@@ -12,6 +13,7 @@ class TestCase extends BaseTestCase
     {
         return [
             SupportServiceProvider::class,
+            PermissionServiceProvider::class,
             AuthorizationServiceProvider::class,
         ];
     }
