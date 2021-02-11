@@ -26,11 +26,4 @@ class AuthorizationServiceProvider extends PackageServiceProvider
             ->name('authorization')
             ->hasConfigFile();
     }
-
-    public function registeringPackage()
-    {
-        $this->publishes([
-            __DIR__.'/../config/permission.php' => config_path('permission.php'),
-        ]);
-    }
 }
