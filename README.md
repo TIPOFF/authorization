@@ -14,16 +14,12 @@ You can install the package via composer:
 composer require tipoff/authorization
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="Tipoff\Authorization\AuthorizationServiceProvider" --tag="migrations"
-php artisan migrate
-```
+The migrations will run from the package. You can extend the Models from the package if you need additional classes or functions added to them.
 
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="Tipoff\Authorization\AuthorizationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
