@@ -6,8 +6,6 @@ namespace Tipoff\Authorization;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tipoff\Support\TipoffPackage;
-use Tipoff\Support\TipoffServiceProvider;
 
 class AuthorizationServiceProvider extends PackageServiceProvider
 {
