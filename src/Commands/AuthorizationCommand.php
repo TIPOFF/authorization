@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Authorization\Commands;
 
 use Illuminate\Console\Command;
