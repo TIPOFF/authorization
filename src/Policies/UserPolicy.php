@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Policies;
 
-use Tipoff\Authorization\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Tipoff\Authorization\Models\User;
 use Tipoff\Support\Contracts\Models\UserInterface;
 
 class UserPolicy

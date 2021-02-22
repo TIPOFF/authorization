@@ -2,11 +2,11 @@
 
 namespace Tipoff\Authorization\Tests\Unit\Models;
 
-use Tipoff\Checkout\Models\Cart;
-use Tipoff\Authorization\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Carbon;
+use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Tests\TestCase;
+use Tipoff\Checkout\Models\Cart;
 
 class UserTest extends TestCase
 {
