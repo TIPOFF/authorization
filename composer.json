@@ -17,6 +17,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "spatie/laravel-permission": "^4.0",
+        "vyuldashev/nova-permission": "^2.11",
+        "laravel/cashier": "^12.6",
         "tipoff/support": "^1.2.7"
     },
     "require-dev": {
