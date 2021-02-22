@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Authorization\Tests;
 
 use Spatie\Permission\PermissionServiceProvider;
