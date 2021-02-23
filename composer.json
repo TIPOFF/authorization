@@ -17,10 +17,10 @@
     "require": {
         "php": "^7.4|^8.0",
         "spatie/laravel-permission": "^4.0",
-        "tipoff/support": "^1.2.7"
+        "tipoff/support": "^1.4.3"
     },
     "require-dev": {
-        "tipoff/test-support": "^1.0"
+        "tipoff/test-support": "^1.0.5"
     },
     "autoload": {
         "psr-4": {
