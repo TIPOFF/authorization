@@ -116,12 +116,14 @@ class User extends Authenticatable
     /**
      * Get active cart.
      *
-     * @return CartInterface
+     * @return CartInterface|null
      */
     public function cart()
     {
-        /** @var CartInterface $cartInterface */
-        $cartInterface = app(CartInterface::class);
-        return $cartInterface::activeCart($this->id);
+        if ($service = findService(CartInterface::class)) {
+            return $service::activeCart($this->id);
+        }
+
+        return null;
     }
 }
