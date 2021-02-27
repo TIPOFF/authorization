@@ -14,8 +14,8 @@ class AddAuthPermissions extends Migration
             app(PermissionRegistrar::class)->forgetCachedPermissions();
 
             foreach ([
-                         'access admin',
-                     ] as $name) {
+                'access admin',
+            ] as $name) {
                 app(Permission::class)::findOrCreate($name, null);
             };
         }
