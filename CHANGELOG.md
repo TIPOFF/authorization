@@ -21,3 +21,7 @@ All notable changes to `authorization` will be documented in this file.
 - register policies
 - add nova resources
 - register nova resources
+
+## 2.0.1 - 2021-02-27
+
+- fix class name
