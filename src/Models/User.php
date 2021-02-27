@@ -122,6 +122,7 @@ class User extends Authenticatable
     {
         /** @var CartInterface $cartInterface */
         $cartInterface = app(CartInterface::class);
+
         return $cartInterface::activeCart($this->id);
     }
 }
