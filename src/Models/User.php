@@ -105,14 +105,14 @@ class User extends Authenticatable
         return "{$this->name} {$this->name_last}";
     }
 
-    public function toCustomer(array $attributes): Customer
+    public function toCustomer(array $attributes)
     {
         $this->assignRole('Customer');
 
         return $this->customers()->create($attributes);
     }
 
-    /**
+    /*/**
      * Get active cart.
      *
      * @return Cart
