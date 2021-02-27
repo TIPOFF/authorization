@@ -16,10 +16,11 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "spatie/laravel-permission": "^4.0",
-        "vyuldashev/nova-permission": "^2.11",
         "laravel/cashier": "^12.6",
-        "tipoff/support": "^1.4.3"
+        "laravel/passport": "^10.1",
+        "spatie/laravel-permission": "^4.0",
+        "tipoff/support": "^1.4.3",
+        "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
