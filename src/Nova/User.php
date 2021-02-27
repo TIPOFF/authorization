@@ -54,13 +54,13 @@ class User extends Resource
     {
         return [
             Text::make('First Name', 'name')
-                ->rules('required', 'max:255'),
+                ->rules(['required', 'max:255']),
 
             Text::make('Last Name', 'name_last')
-                ->rules('required', 'max:255'),
+                ->rules(['required', 'max:255']),
 
             Text::make('Email')
-                ->rules('required', 'email', 'max:254')
+                ->rules(['required', 'email', 'max:254'])
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
