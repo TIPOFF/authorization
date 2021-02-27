@@ -13,9 +13,13 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Tipoff\Support\Nova\BaseResource;
 use Vyuldashev\NovaPermission\PermissionBooleanGroup;
 use Vyuldashev\NovaPermission\RoleBooleanGroup;
+<<<<<<< HEAD
 use Laravel\Nova\Resource;
+=======
+>>>>>>> bfe0ae4b7913717f5d72cdbf02c7eb9f84f3632c
 
 class User extends Resource
 {
