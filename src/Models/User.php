@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Tipoff\Support\Contracts\Checkout\CartInterface;
 
 class User extends Authenticatable
 {
@@ -112,22 +113,15 @@ class User extends Authenticatable
         return $this->customers()->create($attributes);
     }
 
-    /*/**
+    /**
      * Get active cart.
      *
-     * @return Cart
+     * @return CartInterface
      */
     public function cart()
     {
-        $activeCart = $this->carts()
-            ->active()
-            ->orderByDesc('id')
-            ->first();
-
-        if (empty($activeCart)) {
-            $activeCart = $this->carts()->create();
-        }
-
-        return $activeCart;
+        /** @var CartInterface $cartInterface */
+        $cartInterface = app(CartInterface::class);
+        return $cartInterface::activeCart($this->id);
     }
 }
