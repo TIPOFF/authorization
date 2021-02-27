@@ -15,9 +15,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Vyuldashev\NovaPermission\PermissionBooleanGroup;
 use Vyuldashev\NovaPermission\RoleBooleanGroup;
-use Tipoff\Support\Nova\BaseResource;
+use Laravel\Nova\Resource;
 
-class User extends BaseResource
+class User extends Resource
 {
     public static $model = \Tipoff\Authorization\Models\User::class;
 
