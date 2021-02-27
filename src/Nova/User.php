@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
+use Laravel\Nova\Resource;
 use Vyuldashev\NovaPermission\PermissionBooleanGroup;
 use Vyuldashev\NovaPermission\RoleBooleanGroup;
 
@@ -53,13 +54,13 @@ class User extends Resource
     {
         return [
             Text::make('First Name', 'name')
-                ->rules('required', 'max:255'),
+                ->rules(['required', 'max:255']),
 
             Text::make('Last Name', 'name_last')
-                ->rules('required', 'max:255'),
+                ->rules(['required', 'max:255']),
 
             Text::make('Email')
-                ->rules('required', 'email', 'max:254')
+                ->rules(['required', 'email', 'max:254'])
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 

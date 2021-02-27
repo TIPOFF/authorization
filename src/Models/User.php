@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Tipoff\Support\Contracts\Checkout\CartInterface;
 
 class User extends Authenticatable
 {
@@ -105,7 +106,7 @@ class User extends Authenticatable
         return "{$this->name} {$this->name_last}";
     }
 
-    public function toCustomer(array $attributes): Customer
+    public function toCustomer(array $attributes)
     {
         $this->assignRole('Customer');
 
@@ -115,19 +116,15 @@ class User extends Authenticatable
     /**
      * Get active cart.
      *
-     * @return Cart
+     * @return CartInterface|null
      */
     public function cart()
     {
-        $activeCart = $this->carts()
-            ->active()
-            ->orderByDesc('id')
-            ->first();
-
-        if (empty($activeCart)) {
-            $activeCart = $this->carts()->create();
+        if ($service = findService(CartInterface::class)) {
+            /** @var CartInterface $service */
+            return $service::activeCart($this->id);
         }
 
-        return $activeCart;
+        return null;
     }
 }
