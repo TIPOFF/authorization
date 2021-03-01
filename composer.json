@@ -19,7 +19,7 @@
         "laravel/cashier": "^12.6",
         "laravel/passport": "^10.1",
         "spatie/laravel-permission": "^4.0",
-        "tipoff/support": "^1.5.1",
+        "tipoff/support": "^1.5.2",
         "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
