@@ -25,3 +25,8 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.0.1 - 2021-02-27
 
 - fix class name
+
+## 2.1.0 - 2021-03-01
+
+- base permissions migration
+- update user model
