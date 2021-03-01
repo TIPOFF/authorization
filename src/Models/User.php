@@ -4,20 +4,29 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tipoff\Support\Contracts\Checkout\CartInterface;
+use Tipoff\Support\Contracts\Models\UserInterface;
+use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasPackageFactory;
 
-class User extends Authenticatable
+class User extends BaseModel implements UserInterface
 {
-    use HasFactory;
+    use HasPackageFactory;
     use SoftDeletes;
+    use Authenticatable;
+    use Authorizable;
+    use CanResetPassword;
+    use MustVerifyEmail;
     use Notifiable;
     use HasRoles;
     use HasApiTokens;
