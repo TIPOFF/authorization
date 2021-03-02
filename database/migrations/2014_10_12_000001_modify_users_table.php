@@ -10,15 +10,9 @@ class ModifyUsersTable extends Migration
 {
     public function up()
     {
+        // Isolate rename in its own changeset, Sqlite has (silent) failures otherwise
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name', 'first_name');
-            $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
-            $table->text('title')->nullable()->after('bio');
-            $table->softDeletes()->after('title');
-
-            // needed for Laravel Socialite
-            $table->string('provider_name')->nullable()->after('password');
-            $table->string('provider_id')->unique()->nullable()->after('provider');
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -28,6 +22,13 @@ class ModifyUsersTable extends Migration
             if (config("database.default") === "testing") {
                 $column->default('');
             }
+            $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
+            $table->text('title')->nullable()->after('bio');
+            $table->softDeletes()->after('title');
+
+            // needed for Laravel Socialite
+            $table->string('provider_name')->nullable()->after('password');
+            $table->string('provider_id')->unique()->nullable()->after('provider');
         });
     }
 }
