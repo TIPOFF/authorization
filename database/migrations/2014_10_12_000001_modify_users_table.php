@@ -11,7 +11,8 @@ class ModifyUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $column = $table->string('name_last')->after('creator_id');
+            $table->renameColumn('name', 'first_name');
+            $column = $table->string('last_name')->after('first_name');
             // Workaround for Sqlite / ALTER
             // - https://stackoverflow.com/questions/20822159/laravel-migration-with-sqlite-cannot-add-a-not-null-column-with-default-value-n
             if (config("database.default") === "testing") {
