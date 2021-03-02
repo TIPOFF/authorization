@@ -32,8 +32,8 @@ class User extends Resource
 
     public static $search = [
         'id',
-        'name',
-        'name_last',
+        'first_name',
+        'last_name',
         'email',
     ];
 
@@ -44,8 +44,8 @@ class User extends Resource
         return [
             ID::make()->sortable(),
             Gravatar::make()->maxWidth(50),
-            Text::make('First Name', 'name')->sortable(),
-            Text::make('Last Name', 'name_last')->sortable(),
+            Text::make('First Name', 'first_name')->sortable(),
+            Text::make('Last Name', 'last_name')->sortable(),
             Text::make('Email')->sortable(),
         ];
     }
@@ -53,10 +53,10 @@ class User extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('First Name', 'name')
+            Text::make('First Name', 'first_name')
                 ->rules(['required', 'max:255']),
 
-            Text::make('Last Name', 'name_last')
+            Text::make('Last Name', 'last_name')
                 ->rules(['required', 'max:255']),
 
             Text::make('Email')

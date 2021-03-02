@@ -15,6 +15,10 @@ class ModifyUsersTable extends Migration
             $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
             $table->text('title')->nullable()->after('bio');
             $table->softDeletes()->after('title');
+
+            // needed for Laravel Socialite
+            $table->string('provider_name')->nullable()->after('password');
+            $table->string('provider_id')->unique()->nullable()->after('provider');
         });
 
         Schema::table('users', function (Blueprint $table) {
