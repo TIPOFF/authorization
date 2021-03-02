@@ -34,3 +34,8 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.1.1 - 2021-03-01
 
 - extend tipoff/test-support
+
+## 2.2.0 - 2021-03-02
+
+- change name fields of user
+- add laravel socialite
