@@ -16,9 +16,6 @@ class UserPolicyTest extends TestCase
     /** @test */
     public function view_any()
     {
-        // TODO - someone needs to fix this to be proper
-        $this->markTestSkipped('TODO - someone needs to fix this to be proper');
-
         $user = self::createPermissionedUser('view users', true);
         $this->assertTrue($user->can('viewAny', User::class));
 
@@ -32,14 +29,11 @@ class UserPolicyTest extends TestCase
      */
     public function all_permissions_as_creator(string $permission, UserInterface $user, bool $expected)
     {
-        // TODO - someone needs to fix this to be proper
-        $this->markTestSkipped('TODO - someone needs to fix this to be proper');
-
-        $user = User::factory()->make([
+        $target = User::factory()->make([
             'creator_id' => $user,
         ]);
 
-        $this->assertEquals($expected, $user->can($permission, $user));
+        $this->assertEquals($expected, $user->can($permission, $target));
     }
 
     public function data_provider_for_all_permissions_as_creator()
@@ -47,9 +41,9 @@ class UserPolicyTest extends TestCase
         return [
             'view-true' => [ 'view', self::createPermissionedUser('view users', true), true ],
             'view-false' => [ 'view', self::createPermissionedUser('view users', false), false ],
-            'create-true' => [ 'create', self::createPermissionedUser('create users', true), false ],
+            'create-true' => [ 'create', self::createPermissionedUser('create users', true), true ],
             'create-false' => [ 'create', self::createPermissionedUser('create users', false), false ],
-            'update-true' => [ 'update', self::createPermissionedUser('update users', true), false ],
+            'update-true' => [ 'update', self::createPermissionedUser('update users', true), true ],
             'update-false' => [ 'update', self::createPermissionedUser('update users', false), false ],
             'delete-true' => [ 'delete', self::createPermissionedUser('delete users', true), false ],
             'delete-false' => [ 'delete', self::createPermissionedUser('delete users', false), false ],
@@ -62,12 +56,9 @@ class UserPolicyTest extends TestCase
      */
     public function all_permissions_not_creator(string $permission, UserInterface $user, bool $expected)
     {
-        // TODO - someone needs to fix this to be proper
-        $this->markTestSkipped('TODO - someone needs to fix this to be proper');
+        $target = User::factory()->make();
 
-        $user = User::factory()->make();
-
-        $this->assertEquals($expected, $user->can($permission, $user));
+        $this->assertEquals($expected, $user->can($permission, $target));
     }
 
     public function data_provider_for_all_permissions_not_creator()
