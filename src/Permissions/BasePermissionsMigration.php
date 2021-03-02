@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tipoff\Authorization\Permissions;
+
 use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\PermissionRegistrar;

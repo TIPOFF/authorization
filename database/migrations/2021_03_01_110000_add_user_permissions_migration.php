@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Tipoff\Authorization\Permissions\BasePermissionsMigration;
+
 class AddUserPermissionsMigration extends BasePermissionsMigration
 {
     public function up()
