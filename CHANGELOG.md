@@ -30,3 +30,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - base permissions migration
 - update user model
+
+## 2.1.1 - 2021-03-01
+
+- extend tipoff/test-support
