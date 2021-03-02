@@ -39,3 +39,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - change name fields of user
 - add laravel socialite
+
+## 2.2.1 - 2021-03-02
+
+- add tests for user migration
