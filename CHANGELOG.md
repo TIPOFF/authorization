@@ -43,3 +43,8 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.2.1 - 2021-03-02
 
 - add tests for user migration
+
+## 2.2.2 - 2021-03-02
+
+- new version of base permissions migration
+- updated user permissions migration
