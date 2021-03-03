@@ -28,7 +28,7 @@ class ModifyUsersTable extends Migration
 
             // needed for Laravel Socialite
             $table->string('provider_name')->nullable()->after('password');
-            $table->string('provider_id')->unique()->nullable()->after('provider');
+            $table->string('provider_id')->unique()->nullable()->after('provider_name');
         });
     }
 }
