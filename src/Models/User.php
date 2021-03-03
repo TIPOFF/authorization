@@ -110,6 +110,11 @@ class User extends BaseModel implements UserInterface
         return $this->hasMany(app('cart'));
     }
 
+    public function alternateEmails()
+    {
+        return $this->hasMany(app('alternate_email'));
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->name} {$this->name_last}";
