@@ -48,3 +48,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - new version of base permissions migration
 - updated user permissions migration
+
+## 2.2.3 - 2021-03-03
+
+- fix user database migration
