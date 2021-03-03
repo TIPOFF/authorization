@@ -2,27 +2,24 @@
 
 declare(strict_types=1);
 
+namespace Tipoff\Authorization\Permissions;
+
 use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Collection;
+use Spatie\Permission\PermissionRegistrar;
 
-class CreatePermissionsMigration extends Migration
+class BasePermissionsMigration extends Migration
 {
-    public function up()
+    public function createPermissions($permissions)
     {
         if (app()->has(Permission::class)) {
             $adminRole = Role::findByName('Admin');
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
-            $permissions = [
-                'view users',
-                'create users',
-                'update users',
-            ];
 
             foreach ($permissions as $permission) {
+                /** @psalm-suppress UndefinedMethod */
                 app(Permission::class)::findOrCreate($permission, null);
                 $adminRole->givePermissionTo($permission);
             }
