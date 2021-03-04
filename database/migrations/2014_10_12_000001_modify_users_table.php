@@ -22,14 +22,13 @@ class ModifyUsersTable extends Migration
             if (config("database.default") === "testing") {
                 $column->default('');
             }
-            $table->string('username')->after('last_name');
             // Temporary workaround for Sqlite / ALTER
             // @todo need better testing solution
             if (config("database.default") !== "testing") {
-                $column->unique();
+                $table->string('username')->unique()->after('last_name');
             }
             if (config("database.default") === "testing") {
-                $column->nullable();
+                $table->string('username')->nullable()->after('last_name');
             }
             $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
             $table->text('title')->nullable()->after('bio');
