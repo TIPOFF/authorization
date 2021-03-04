@@ -52,3 +52,8 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.2.3 - 2021-03-03
 
 - fix user database migration
+
+## 2.3.0 - 2021-03-04
+
+- username
+- alternate user emails
