@@ -22,7 +22,7 @@ class ModifyUsersTable extends Migration
             if (config("database.default") === "testing") {
                 $column->default('');
             }
-            $table->string('username')->after('last_name');
+            $table->string('username')->unique()->after('last_name');
             $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
             $table->text('title')->nullable()->after('bio');
             $table->softDeletes()->after('title');
