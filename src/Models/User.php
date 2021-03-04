@@ -52,7 +52,17 @@ class User extends BaseModel implements UserInterface
             if (empty($user->password)) {
                 $user->password = bcrypt(Str::upper(Str::random(8)));
             }
+            $user->generateUsername();
         });
+    }
+    
+    public function generateUsername()
+    {
+        do {
+            $generic = 'user' . Str::of(Carbon::now('America/New_York')->format('ymdB'))->substr(1, 7) . Str::lower(Str::random(6));
+        } while (self::where('username', $generic)->first()); //check if the generated generic username already exists and if it does, try again
+
+        $this->username = $generic;
     }
 
     public function locations()
