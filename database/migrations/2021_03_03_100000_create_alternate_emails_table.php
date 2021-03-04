@@ -10,14 +10,9 @@ class CreateAlternateEmailsTable extends Migration
     {
         Schema::create('alternate_emails', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('email')->unique();
+            $table->foreignIdFor(app('user'));
             $table->timestamps();
         });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('alternate_emails');
     }
 }
