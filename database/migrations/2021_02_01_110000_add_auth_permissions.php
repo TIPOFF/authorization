@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\PermissionRegistrar;
+use Tipoff\Authorization\Permissions\BasePermissionsMigration;
 
-class AddAuthPermissions extends Migration
+class AddAuthPermissions extends BasePermissionsMigration
 {
     public function up()
     {
-        if (app()->has(Permission::class)) {
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
+        $permissions = [
+            'access admin',
+            'view users',
+            'create users',
+            'update users',
+        ];
 
-            foreach ([
-                'access admin',
-            ] as $name) {
-                app(Permission::class)::findOrCreate($name, null);
-            };
-        }
+        $this->createPermissions($permissions);
     }
 }

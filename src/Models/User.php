@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Models;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -52,7 +53,17 @@ class User extends BaseModel implements UserInterface
             if (empty($user->password)) {
                 $user->password = bcrypt(Str::upper(Str::random(8)));
             }
+            $user->generateUsername();
         });
+    }
+    
+    public function generateUsername()
+    {
+        do {
+            $generic = 'user' . Str::of(Carbon::now('America/New_York')->format('ymdB'))->substr(1, 7) . Str::lower(Str::random(6));
+        } while (self::where('username', $generic)->first()); //check if the generated generic username already exists and if it does, try again
+
+        $this->username = $generic;
     }
 
     public function locations()
@@ -108,6 +119,11 @@ class User extends BaseModel implements UserInterface
     public function carts()
     {
         return $this->hasMany(app('cart'));
+    }
+
+    public function alternateEmails()
+    {
+        return $this->hasMany(app('alternate_email'));
     }
 
     public function getFullNameAttribute()
