@@ -56,7 +56,7 @@ class User extends BaseModel implements UserInterface
             $user->generateUsername();
         });
     }
-    
+
     public function generateUsername()
     {
         do {
@@ -128,7 +128,7 @@ class User extends BaseModel implements UserInterface
 
     public function getFullNameAttribute()
     {
-        return "{$this->name} {$this->name_last}";
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function toCustomer(array $attributes)
