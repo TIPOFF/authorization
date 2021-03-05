@@ -57,3 +57,8 @@ All notable changes to `authorization` will be documented in this file.
 
 - username
 - alternate user emails
+
+## 2.3.1 - 2021-03-05
+
+- update nova resources
+- nova testing
