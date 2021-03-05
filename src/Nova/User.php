@@ -13,11 +13,11 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use Laravel\Nova\Resource;
+use Tipoff\Support\Nova\BaseResource;
 use Vyuldashev\NovaPermission\PermissionBooleanGroup;
 use Vyuldashev\NovaPermission\RoleBooleanGroup;
 
-class User extends Resource
+class User extends BaseResource
 {
     public static $model = \Tipoff\Authorization\Models\User::class;
 
@@ -52,7 +52,7 @@ class User extends Resource
 
     public function fields(Request $request)
     {
-        return [
+        return array_filter([
             Text::make('First Name', 'first_name')
                 ->rules(['required', 'max:255']),
 
@@ -69,20 +69,20 @@ class User extends Resource
             Text::make('Bio'),
             Text::make('Title'),
 
-            BelongsToMany::make('Locations'),
+            nova('location') ? BelongsToMany::make('Locations', 'locations', nova('location')) : null,
 
-            HasMany::make('Customers', 'customers', app('customer')),
-            HasMany::make('Participants', 'participants', app('participant')),
+            nova('customer') ? HasMany::make('Customers', 'customers', nova('customer')) : null,
+            nova('participant') ? HasMany::make('Participants', 'participants', nova('participant')) : null,
 
-            HasMany::make('Managed Locations', 'managedLocations', app('location')),
-            HasMany::make('Posts', 'posts', app('post')),
-            HasMany::make('Vouchers Created', 'vouchersCreated', app('voucher')),
-            HasMany::make('Blocks'),
+            nova('location') ? HasMany::make('Managed Locations', 'managedLocations', nova('location')) : null,
+            nova('post') ? HasMany::make('Posts', 'posts', nova('post')) : null,
+            nova('voucher') ? HasMany::make('Vouchers Created', 'vouchersCreated', nova('voucher')) : null,
+            nova('blocks') ? HasMany::make('Blocks', 'blocks', nova('blocks')) : null,
 
             new Panel('Permissions', $this->permissionFields()),
 
             new Panel('Data Fields', $this->dataFields()),
-        ];
+        ]);
     }
 
     protected function permissionFields()
@@ -97,33 +97,12 @@ class User extends Resource
         ];
     }
 
-    protected function dataFields()
+    protected function dataFields(): array
     {
-        return [
-            ID::make(),
+        return array_merge(parent::dataFields(), [
             DateTime::make('Created At')->exceptOnForms(),
             DateTime::make('Updated At')->exceptOnForms(),
-        ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [];
+        ]);
     }
 
     public function authorizedToForceDelete(Request $request)
