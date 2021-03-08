@@ -62,3 +62,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - update nova resources
 - nova testing
+
+## 2.3.2 - 2021-03-07
+
+- function to add permissions to role
