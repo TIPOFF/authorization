@@ -41,6 +41,7 @@ class BasePermissionsMigration extends Migration
             app(PermissionRegistrar::class)->forgetCachedPermissions();
 
             foreach ($permissions as $permission) {
+                /** @psalm-suppress UndefinedMethod */
                 app(Permission::class)::findOrCreate($permission, null);
                 $Role->givePermissionTo($permission);
             }
