@@ -25,4 +25,25 @@ class BasePermissionsMigration extends Migration
             }
         }
     }
+
+    /**
+     * General-purpose function to add a list of permissions to a particular role
+     * Role passed as string name of role, eg. 'Owner', 'Customer', etc
+     * - djfar
+     * @param $permissions
+     * @param $role
+     */
+    public function addPermissionsToRole($permissions, $role)
+    {
+        if (app()->has(Permission::class)) {
+            $Role = Role::findByName($role);
+
+            app(PermissionRegistrar::class)->forgetCachedPermissions();
+
+            foreach ($permissions as $permission) {
+                app(Permission::class)::findOrCreate($permission, null);
+                $Role->givePermissionTo($permission);
+            }
+        }
+    }
 }
