@@ -16,21 +16,8 @@ class ModifyUsersTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            // @todo need better testing solution
-            $column = $table->string('last_name')->after('first_name');
-            // Workaround for Sqlite / ALTER
-            // - https://stackoverflow.com/questions/20822159/laravel-migration-with-sqlite-cannot-add-a-not-null-column-with-default-value-n
-            if (config("database.default") === "testing") {
-                $column->default('');
-            }
-            // Temporary workaround for Sqlite / ALTER
-            // @todo need better testing solution
-            if (config("database.default") !== "testing") {
-                $table->string('username')->unique()->after('last_name');
-            }
-            if (config("database.default") === "testing") {
-                $table->string('username')->nullable()->after('last_name');
-            }
+            $table->string('last_name')->after('first_name');
+            $table->string('username')->unique()->after('last_name');
             $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
             $table->text('title')->nullable()->after('bio');
             $table->softDeletes()->after('title');
