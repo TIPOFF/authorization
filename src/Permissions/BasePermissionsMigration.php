@@ -21,12 +21,12 @@ class BasePermissionsMigration extends Migration
              * 3. permission string without value (for backward compat)
              */
             foreach ($permissions as $permission => $roles) {
-                if(is_numeric($permission)){    // it doesn't have a role; the role is the permission
+                if (is_numeric($permission)) {    // it doesn't have a role; the role is the permission
                     $permission = $roles;       // swap key and value
                     $this->givePermissionToAdmin($permission);
                 } else {
                     foreach ($roles as $role) {
-                        if($Role = Role::findByName($role)){
+                        if ($Role = Role::findByName($role)) {
                             $this->givePermissionToAdmin($permission);
                             $Role->givePermissionTo($permission);
                         }
@@ -44,7 +44,7 @@ class BasePermissionsMigration extends Migration
         /** @psalm-suppress UndefinedMethod */
         app(Permission::class)::findOrCreate($permission, null);
         // assign to admin if doesn't have
-        if(!$adminRole->hasPermissionTo($permission)){
+        if (! $adminRole->hasPermissionTo($permission)) {
             $adminRole->givePermissionTo($permission);
         }
     }
