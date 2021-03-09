@@ -66,3 +66,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.3.2 - 2021-03-07
 
 - function to add permissions to role
+
+## 2.4.0 - 2021-03-08
+
+- nullable user fields
