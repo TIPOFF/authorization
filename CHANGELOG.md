@@ -70,3 +70,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.4.0 - 2021-03-08
 
 - nullable user fields
+
+## 2.5.0 - 2021-03-08
+
+- new base permissions migration
