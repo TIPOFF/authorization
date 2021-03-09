@@ -16,8 +16,8 @@ class ModifyUsersTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->string('last_name')->after('first_name');
-            $table->string('username')->unique()->after('last_name');
+            $table->string('last_name')->nullable()->after('first_name');
+            $table->string('username')->unique()->nullable()->after('last_name');
             $table->text('bio')->nullable()->after('password'); // Will be written in Markdown. The user profile image will come from Gravatar account for the email address.
             $table->text('title')->nullable()->after('bio');
             $table->softDeletes()->after('title');
