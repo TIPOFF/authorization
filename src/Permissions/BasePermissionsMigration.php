@@ -14,37 +14,38 @@ class BasePermissionsMigration extends Migration
     public function createPermissions($permissions)
     {
         if (app()->has(Permission::class)) {
-            $adminRole = Role::findByName('Admin');
-
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
-
-            foreach ($permissions as $permission) {
-                /** @psalm-suppress UndefinedMethod */
-                app(Permission::class)::findOrCreate($permission, null);
-                $adminRole->givePermissionTo($permission);
+            /*
+             * allow for permissions to be:
+             * 1. permission => [...roles],
+             * 2. permission => [],  (empty array)
+             * 3. permission string without value (for backward compat)
+             */
+            foreach ($permissions as $permission => $roles) {
+                if(is_numeric($permission)){    // it doesn't have a role; the role is the permission
+                    $permission = $roles;       // swap key and value
+                    $this->givePermissionToAdmin($permission);
+                } else {
+                    foreach ($roles as $role) {
+                        if($Role = Role::findByName($role)){
+                            $this->givePermissionToAdmin($permission);
+                            $Role->givePermissionTo($permission);
+                        }
+                    }
+                }
             }
+            /** @psalm-suppress UndefinedMethod */
+            app(PermissionRegistrar::class)->forgetCachedPermissions();
         }
     }
 
-    /**
-     * General-purpose function to add a list of permissions to a particular role
-     * Role passed as string name of role, eg. 'Owner', 'Customer', etc
-     * - djfar
-     * @param $permissions
-     * @param $role
-     */
-    public function addPermissionsToRole($permissions, $role)
+    public function givePermissionToAdmin($permission)
     {
-        if (app()->has(Permission::class)) {
-            $Role = Role::findByName($role);
-
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
-
-            foreach ($permissions as $permission) {
-                /** @psalm-suppress UndefinedMethod */
-                app(Permission::class)::findOrCreate($permission, null);
-                $Role->givePermissionTo($permission);
-            }
+        $adminRole = Role::findByName('Admin');
+        /** @psalm-suppress UndefinedMethod */
+        app(Permission::class)::findOrCreate($permission, null);
+        // assign to admin if doesn't have
+        if(!$adminRole->hasPermissionTo($permission)){
+            $adminRole->givePermissionTo($permission);
         }
     }
 }
