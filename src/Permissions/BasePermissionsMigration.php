@@ -48,7 +48,7 @@ class BasePermissionsMigration extends Migration
     
     private function getRole(string $roleName): ?Role
     {
-        if (!array_key_exists($roleName, self::$roles)) {
+        if (! array_key_exists($roleName, self::$roles)) {
             self::$roles[$roleName] = Role::findByName($roleName);
         }
 
