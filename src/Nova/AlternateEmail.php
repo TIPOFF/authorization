@@ -43,7 +43,7 @@ class AlternateEmail extends BaseResource
     protected function dataFields(): array
     {
         return array_merge(
-            parent::dataFields(), 
+            parent::dataFields(),
             [
                 DateTime::make('Created At')->exceptOnForms(),
                 DateTime::make('Updated At')->exceptOnForms(),
