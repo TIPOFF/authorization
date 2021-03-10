@@ -16,6 +16,9 @@ class BasePermissionsMigration extends Migration
     public function createPermissions($permissions)
     {
         if (app()->has(Permission::class)) {
+            /** @var Permission $service */
+            $service = app(Permission::class);
+            
             /*
              * allow for permissions to be:
              * 1. permission => [...roles],
@@ -28,7 +31,7 @@ class BasePermissionsMigration extends Migration
                     $roles = [];
                 }
                 
-                Permission::findOrCreate($permission);
+                $service::findOrCreate($permission);
                 $this->givePermissionToRole($permission, 'Admin');
                 foreach (array_unique($roles) as $role) {
                     $this->givePermissionToRole($permission, $role);
