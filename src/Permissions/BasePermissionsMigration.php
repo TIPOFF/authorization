@@ -31,7 +31,7 @@ class BasePermissionsMigration extends Migration
                     $roles = [];
                 }
                 
-                $service::findOrCreate($permission);
+                $service::findOrCreate($permission, null);
                 $this->givePermissionToRole($permission, 'Admin');
                 foreach (array_unique($roles) as $role) {
                     $this->givePermissionToRole($permission, $role);
