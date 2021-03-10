@@ -11,6 +11,8 @@ use Spatie\Permission\PermissionRegistrar;
 
 class BasePermissionsMigration extends Migration
 {
+    private static array $roles = [];
+    
     public function createPermissions($permissions)
     {
         if (app()->has(Permission::class)) {
@@ -23,14 +25,13 @@ class BasePermissionsMigration extends Migration
             foreach ($permissions as $permission => $roles) {
                 if (is_numeric($permission)) {    // it doesn't have a role; the role is the permission
                     $permission = $roles;       // swap key and value
-                    $this->givePermissionToAdmin($permission);
-                } else {
-                    foreach ($roles as $role) {
-                        if ($Role = Role::findByName($role)) {
-                            $this->givePermissionToAdmin($permission);
-                            $Role->givePermissionTo($permission);
-                        }
-                    }
+                    $roles = [];
+                }
+                
+                Permission::findOrCreate($permission);
+                $this->givePermissionToRole($permission, 'Admin');
+                foreach (array_unique($roles) as $role) {
+                    $this->givePermissionToRole($permission, $role);
                 }
             }
             /** @psalm-suppress UndefinedMethod */
@@ -38,14 +39,22 @@ class BasePermissionsMigration extends Migration
         }
     }
 
-    public function givePermissionToAdmin($permission)
+    public function givePermissionToRole(string $permission, string $roleName)
     {
-        $adminRole = Role::findByName('Admin');
-        /** @psalm-suppress UndefinedMethod */
-        app(Permission::class)::findOrCreate($permission, null);
-        // assign to admin if doesn't have
-        if (! $adminRole->hasPermissionTo($permission)) {
-            $adminRole->givePermissionTo($permission);
+        if ($role = $this->getRole($roleName)) {
+            $role->givePermissionTo($permission);
         }
+    }
+    
+    private function getRole(string $roleName): ?Role
+    {
+        if (!array_key_exists($roleName, self::$roles)) {
+            self::$roles[$roleName] = Role::findByName($roleName);
+        }
+
+        /** @var Role $role */
+        $role = self::$roles[$roleName];
+        
+        return $role;
     }
 }
