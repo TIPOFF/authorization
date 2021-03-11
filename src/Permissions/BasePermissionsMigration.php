@@ -41,19 +41,20 @@ class BasePermissionsMigration extends Migration
          * 2. permission => [],  (empty array)
          * 3. permission string without value (for backward compat)
          */
-        if (!Arr::isAssoc($permissions)) {
+        if (! Arr::isAssoc($permissions)) {
             /** @psalm-suppress UnusedClosureParam */
             $permissions = array_map(function ($value) {
                 return [];
             }, array_flip($permissions));
         }
 
-        returN $permissions;
+        return $permissions;
     }
 
     public function buildPermissionRecords(array $permissions): array
     {
         $guardName = Guard::getDefaultName(Permission::class);
+
         return collect(array_keys($permissions))
             ->map(function (string $permission) use ($guardName) {
                 return ['name' => $permission, 'guard_name' => $guardName];
