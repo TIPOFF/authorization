@@ -5,59 +5,71 @@ declare(strict_types=1);
 namespace Tipoff\Authorization\Permissions;
 
 use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\Contracts\Permission;
+use Illuminate\Support\Arr;
+use Spatie\Permission\Guard;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class BasePermissionsMigration extends Migration
 {
-    private static array $roles = [];
-    
     public function createPermissions($permissions)
     {
-        if (app()->has(Permission::class)) {
-            /** @var Permission $service */
-            $service = app(Permission::class);
-            
-            /*
-             * allow for permissions to be:
-             * 1. permission => [...roles],
-             * 2. permission => [],  (empty array)
-             * 3. permission string without value (for backward compat)
-             */
-            foreach ($permissions as $permission => $roles) {
-                if (is_numeric($permission)) {    // it doesn't have a role; the role is the permission
-                    $permission = $roles;       // swap key and value
-                    $roles = [];
-                }
-                
-                $service::findOrCreate($permission, null);
-                $this->givePermissionToRole($permission, 'Admin');
-                foreach (array_unique($roles) as $role) {
-                    $this->givePermissionToRole($permission, $role);
-                }
+        $permissions = $this->preparePermissions($permissions);
+
+        // Add all permissions in bulk
+        Permission::query()->insertOrIgnore(
+            $this->buildPermissionRecords($permissions)
+        );
+
+        $rolePermissions = $this->buildRolePermissions($permissions);
+        foreach ($rolePermissions as $roleName => $permissionNames) {
+            /** @var Role $role */
+            $role = Role::findOrCreate($roleName, null);
+            $role->givePermissionTo($permissionNames);
+        }
+
+        /** @psalm-suppress UndefinedMethod */
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+    public function preparePermissions(array $permissions): array
+    {
+        /*
+         * allow for permissions to be:
+         * 1. permission => [...roles],
+         * 2. permission => [],  (empty array)
+         * 3. permission string without value (for backward compat)
+         */
+        if (!Arr::isAssoc($permissions)) {
+            /** @psalm-suppress UnusedClosureParam */
+            $permissions = array_map(function ($value) {
+                return [];
+            }, array_flip($permissions));
+        }
+
+        returN $permissions;
+    }
+
+    public function buildPermissionRecords(array $permissions): array
+    {
+        $guardName = Guard::getDefaultName(Permission::class);
+        return collect(array_keys($permissions))
+            ->map(function (string $permission) use ($guardName) {
+                return ['name' => $permission, 'guard_name' => $guardName];
+            })->toArray();
+    }
+
+    public function buildRolePermissions(array $permissions): array
+    {
+        $rolePermissions = [];
+        foreach ($permissions as $permissionName => $roles) {
+            $roles = array_unique(array_merge(['Admin'], $roles));
+            foreach ($roles as $roleName) {
+                $rolePermissions[$roleName][] = $permissionName;
             }
-            /** @psalm-suppress UndefinedMethod */
-            app(PermissionRegistrar::class)->forgetCachedPermissions();
-        }
-    }
-
-    public function givePermissionToRole(string $permission, string $roleName)
-    {
-        if ($role = $this->getRole($roleName)) {
-            $role->givePermissionTo($permission);
-        }
-    }
-    
-    private function getRole(string $roleName): ?Role
-    {
-        if (! array_key_exists($roleName, self::$roles)) {
-            self::$roles[$roleName] = Role::findByName($roleName);
         }
 
-        /** @var Role $role */
-        $role = self::$roles[$roleName];
-        
-        return $role;
+        return $rolePermissions;
     }
 }
