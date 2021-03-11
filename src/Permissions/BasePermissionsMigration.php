@@ -64,7 +64,7 @@ class BasePermissionsMigration extends Migration
                     'name' => $permission,
                     'guard_name' => $guardName,
                     'created_at' => $now,
-                    'updated_at' => $now
+                    'updated_at' => $now,
                 ];
             })->toArray();
     }
