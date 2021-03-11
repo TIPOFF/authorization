@@ -74,3 +74,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.5.0 - 2021-03-08
 
 - new base permissions migration
+
+## 2.5.1 - 2021-03-11
+
+- optimize speed of package permissions migrations
