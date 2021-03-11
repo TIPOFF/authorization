@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Permissions;
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Guard;
@@ -25,8 +26,9 @@ class BasePermissionsMigration extends Migration
         $rolePermissions = $this->buildRolePermissions($permissions);
         foreach ($rolePermissions as $roleName => $permissionNames) {
             /** @var Role $role */
-            $role = Role::findOrCreate($roleName, null);
-            $role->givePermissionTo($permissionNames);
+            if ($role = Role::findByName($roleName)) {
+                $role->givePermissionTo($permissionNames);
+            }
         }
 
         /** @psalm-suppress UndefinedMethod */
@@ -54,9 +56,15 @@ class BasePermissionsMigration extends Migration
     public function buildPermissionRecords(array $permissions): array
     {
         $guardName = Guard::getDefaultName(Permission::class);
+        $now = Carbon::now()->format('Y-m-d H:i:s');
         return collect(array_keys($permissions))
-            ->map(function (string $permission) use ($guardName) {
-                return ['name' => $permission, 'guard_name' => $guardName];
+            ->map(function (string $permission) use ($guardName, $now) {
+                return [
+                    'name' => $permission,
+                    'guard_name' => $guardName,
+                    'created_at' => $now,
+                    'updated_at' => $now
+                ];
             })->toArray();
     }
 

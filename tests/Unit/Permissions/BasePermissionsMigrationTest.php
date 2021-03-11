@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Tests\Unit\Permissions;
 
+use Carbon\Carbon;
 use Tipoff\Authorization\Permissions\BasePermissionsMigration;
 use Tipoff\Authorization\Tests\TestCase;
 
@@ -47,29 +48,34 @@ class BasePermissionsMigrationTest extends TestCase
     /** @test */
     public function permission_records_are_built_properly()
     {
-        $migrator = new BasePermissionsMigration();
+        try {
+            Carbon::setTestNow('2021-01-01 12:00:00');
+            $migrator = new BasePermissionsMigration();
 
-        $result = $migrator->buildPermissionRecords([
-            'a' => [],
-            'b' => [],
-            'c' => [],
-        ]);
-        $this->assertEquals([
-            ['name' => 'a', 'guard_name' => 'web'],
-            ['name' => 'b', 'guard_name' => 'web'],
-            ['name' => 'c', 'guard_name' => 'web'],
-        ], $result);
+            $result = $migrator->buildPermissionRecords([
+                'a' => [],
+                'b' => [],
+                'c' => [],
+            ]);
+            $this->assertEquals([
+                ['name' => 'a', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+                ['name' => 'b', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+                ['name' => 'c', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+            ], $result);
 
-        $result = $migrator->buildPermissionRecords([
-            'a' => ['a', 'b'],
-            'b' => ['c', 'd'],
-            'c' => [],
-        ]);
-        $this->assertEquals([
-            ['name' => 'a', 'guard_name' => 'web'],
-            ['name' => 'b', 'guard_name' => 'web'],
-            ['name' => 'c', 'guard_name' => 'web'],
-        ], $result);
+            $result = $migrator->buildPermissionRecords([
+                'a' => ['a', 'b'],
+                'b' => ['c', 'd'],
+                'c' => [],
+            ]);
+            $this->assertEquals([
+                ['name' => 'a', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+                ['name' => 'b', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+                ['name' => 'c', 'guard_name' => 'web', 'created_at' => '2021-01-01 12:00:00', 'updated_at' => '2021-01-01 12:00:00'],
+            ], $result);
+        } finally {
+            Carbon::setTestNow(null);
+        }
     }
 
     /** @test */
