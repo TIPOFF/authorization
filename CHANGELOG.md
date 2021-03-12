@@ -90,3 +90,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - register permissions nova tools
 - override viewnova gate with permission based access
+
+## 2.5.4 - 2021-03-12
+
+- fix dependency
