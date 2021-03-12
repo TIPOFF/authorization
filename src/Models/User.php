@@ -17,10 +17,11 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tipoff\Support\Contracts\Checkout\CartInterface;
 use Tipoff\Support\Contracts\Models\UserInterface;
+use Tipoff\Support\Contracts\Payment\ChargeableInterface;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
-class User extends BaseModel implements UserInterface
+class User extends BaseModel implements UserInterface, ChargeableInterface
 {
     use HasPackageFactory;
     use SoftDeletes;
