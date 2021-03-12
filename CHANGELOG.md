@@ -94,3 +94,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.5.4 - 2021-03-12
 
 - fix dependency
+
+## 2.5.5 - 2021-03-12
+
+- add chargeable interface to user model
