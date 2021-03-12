@@ -78,3 +78,10 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.5.1 - 2021-03-11
 
 - optimize speed of package permissions migrations
+
+## 2.5.2 - 2021-03-12
+
+- role policy
+- permission policy
+- migrate permissions
+- grant permissions to roles
