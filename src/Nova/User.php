@@ -89,10 +89,10 @@ class User extends BaseResource
     {
         return [
             RoleBooleanGroup::make('Roles')->canSee(function ($request) {
-                return $request->user()->hasRole(['Admin', 'Owner', 'Executive', 'Reservation Manager']);
+                return $request->user()->can('assign roles');
             }),
             PermissionBooleanGroup::make('Permissions')->canSee(function ($request) {
-                return $request->user()->hasRole('Admin');
+                return $request->user()->can('assign permissions');
             }),
         ];
     }
