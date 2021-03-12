@@ -9,10 +9,18 @@ class AddAuthPermissions extends BasePermissionsMigration
     public function up()
     {
         $permissions = [
-            'access admin' => ['Owner','Staff','Customer'],
-            'view users' => ['Owner','Staff'],
-            'create users' => ['Owner','Staff'],
-            'update users' => ['Owner'],
+            'access admin' => ['Owner','Executive','Staff','Customer'],
+            'view users' => ['Owner','Executive','Staff'],
+            'create users' => ['Owner','Executive','Staff'],
+            'update users' => ['Owner','Executive'],
+            'assign roles' => ['Owner','Executive'],
+            'view roles' => ['Owner','Executive'],
+            'create roles' => [],
+            'update roles' => [],
+            'assign permissions' => [],
+            'view permissions' => ['Owner','Executive'],
+            'create permissions' => [],
+            'update permissions' => [],
         ];
 
         $this->createPermissions($permissions);
