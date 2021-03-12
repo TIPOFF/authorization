@@ -20,7 +20,7 @@
         "laravel/passport": "^10.1",
         "laravel/socialite": "^5.2",
         "spatie/laravel-permission": "^4.0",
-        "tipoff/support": "dev-pdbreen/feature/nova-tools as 1.6.0",
+        "tipoff/support": "^1.6.1",
         "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
