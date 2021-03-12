@@ -85,3 +85,8 @@ All notable changes to `authorization` will be documented in this file.
 - permission policy
 - migrate permissions
 - grant permissions to roles
+
+## 2.5.3 - 2021-03-12
+
+- register permissions nova tools
+- override viewnova gate with permission based access
