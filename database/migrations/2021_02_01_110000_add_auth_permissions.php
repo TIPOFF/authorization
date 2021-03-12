@@ -13,6 +13,12 @@ class AddAuthPermissions extends BasePermissionsMigration
             'view users' => ['Owner','Staff'],
             'create users' => ['Owner','Staff'],
             'update users' => ['Owner'],
+            'view roles' => ['Owner'],
+            'create roles' => [],
+            'update roles' => [],
+            'view permissions' => ['Owner'],
+            'create permissions' => [],
+            'update permissions' => [],
         ];
 
         $this->createPermissions($permissions);
