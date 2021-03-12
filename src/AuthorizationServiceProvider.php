@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Events\NovaServiceProviderRegistered;
 use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Policies\UserPolicy;
@@ -41,6 +39,7 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
                         return app()->environment('testing') ||
                             $user->hasPermissionTo('access admin');
                     }
+
                     return false;
                 });
             });
