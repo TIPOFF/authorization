@@ -22,6 +22,8 @@ class AlternateEmail extends BaseResource
     public static $search = [
         'id',
     ];
+    
+    public static $group = 'Resources';
 
     public function fieldsForIndex(NovaRequest $request)
     {
