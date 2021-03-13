@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "laravel/passport": "^10.1",
-        "laravel/socialite": "^5.2",
+        "laravel/passport": "^10.1.2",
+        "laravel/socialite": "^5.2.2",
         "spatie/laravel-permission": "^4.0",
         "tipoff/support": "^1.6.3",
         "vyuldashev/nova-permission": "^2.11"
