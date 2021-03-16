@@ -17,7 +17,6 @@ class AddRoles extends Migration
                 'Staff',
                 'Former Staff',
                 'Customer',
-                'Participant',
             ] as $name) {
                 app(Role::class)::findOrCreate($name, null);
             };
