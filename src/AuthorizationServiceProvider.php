@@ -13,6 +13,7 @@ use Tipoff\Authorization\Policies\UserPolicy;
 use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
+use Tipoff\BookingCalendar\BookingCalendar;
 
 class AuthorizationServiceProvider extends TipoffServiceProvider
 {
@@ -30,6 +31,10 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
                 \Vyuldashev\NovaPermission\NovaPermissionTool::make()
                     ->rolePolicy(RolePolicy::class)
                     ->permissionPolicy(PermissionPolicy::class),
+                (new BookingCalendar)::make()
+                    ->canSee(function ($request) {
+                        return $request->user()->can('view booking calendar');
+                    }),
             ])
             ->name('authorization')
             ->hasConfigFile();
