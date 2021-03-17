@@ -10,10 +10,10 @@ use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Policies\PermissionPolicy;
 use Tipoff\Authorization\Policies\RolePolicy;
 use Tipoff\Authorization\Policies\UserPolicy;
+use Tipoff\BookingCalendar\BookingCalendar;
 use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
-use Tipoff\BookingCalendar\BookingCalendar;
 
 class AuthorizationServiceProvider extends TipoffServiceProvider
 {
