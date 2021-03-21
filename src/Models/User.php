@@ -69,8 +69,10 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
     
     public function emailAddresses()
     {
-        // return $this->hasMany(app('email_addresses'));
+        return $this->hasMany(app('email_addresses'));
     }
+    
+    // @todo create email function to return string of the primary email address for the user
 
     public function locations()
     {
