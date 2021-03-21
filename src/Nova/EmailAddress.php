@@ -13,9 +13,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Tipoff\Support\Nova\BaseResource;
 
-class AlternateEmail extends BaseResource
+class EmailAddress extends BaseResource
 {
-    public static $model = \Tipoff\Authorization\Models\AlternateEmail::class;
+    public static $model = \Tipoff\Authorization\Models\EmailAddress::class;
 
     public static $title = 'email';
 
@@ -29,13 +29,14 @@ class AlternateEmail extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
+            Text::make('Email')->sortable(),
         ]);
     }
 
     public function fields(Request $request)
     {
         return array_filter([
-            Text::make('Email')->required()->creationRules('unique:alternate_emails,email')->sortable(),
+            Text::make('Email')->required()->creationRules('unique:email_addresses,email'),
             nova('user') ? BelongsTo::make('User', 'user', nova('user'))->searchable() : null,
 
             new Panel('Data Fields', $this->dataFields()),
