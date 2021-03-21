@@ -12,6 +12,7 @@ class CreateEmailAddressesTable extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->foreignIdFor(app('user'))->nullable();
+            $table->boolean('primary')->default(false);
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();
         });
