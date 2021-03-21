@@ -66,6 +66,11 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
 
         $this->username = $generic;
     }
+    
+    public function emailAddresses()
+    {
+        // return $this->hasMany(app('email_addresses'));
+    }
 
     public function locations()
     {
@@ -120,11 +125,6 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
     public function carts()
     {
         return $this->hasMany(app('cart'));
-    }
-
-    public function alternateEmails()
-    {
-        return $this->hasMany(app('alternate_email'));
     }
 
     public function getFullNameAttribute()
