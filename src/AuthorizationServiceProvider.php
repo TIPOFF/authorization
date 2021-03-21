@@ -23,7 +23,6 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
                 User::class => UserPolicy::class,
             ])
             ->hasNovaResources([
-                \Tipoff\Authorization\Nova\AlternateEmail::class,
                 \Tipoff\Authorization\Nova\User::class,
             ])
             ->hasNovaTools([
