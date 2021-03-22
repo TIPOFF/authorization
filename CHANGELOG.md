@@ -102,3 +102,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.6.0 - 2021-03-21
 
 - email addresses
+
+## 2.6.1 - 2021-03-21
+
+- improve email addresses
