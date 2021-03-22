@@ -42,8 +42,7 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
             Nova::serving(function () {
                 Gate::define('viewNova', function ($user) {
                     if ($user instanceof UserInterface) {
-                        return app()->environment('testing') ||
-                            $user->hasPermissionTo('access admin');
+                        return $user->hasPermissionTo('access admin');
                     }
 
                     return false;

@@ -17,12 +17,12 @@ class UserResourceTest extends TestCase
     {
         User::factory()->count(4)->create();
 
-        $this->actingAs(self::createPermissionedUser('view users', true));
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
 
         $response = $this->getJson('nova-api/users')
             ->assertOk();
 
-        $this->assertCount(4, $response->json('resources'));
+        $this->assertCount(5, $response->json('resources'));
     }
 
     /** @test */
@@ -30,7 +30,7 @@ class UserResourceTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs(self::createPermissionedUser('view users', true));
+        $this->actingAs(User::factory()->create()->assignRole('Admin'));
 
         $response = $this->getJson("nova-api/users/{$user->id}")
             ->assertOk();
