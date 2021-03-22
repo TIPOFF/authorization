@@ -106,3 +106,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.6.1 - 2021-03-21
 
 - improve email addresses
+
+## 2.6.2 - 2021-03-22
+
+- enforce access admin permission during testing
