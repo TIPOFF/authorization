@@ -13,7 +13,8 @@ class CreateEmailAddressesTable extends Migration
             $table->string('email')->unique();
             $table->foreignIdFor(app('user'))->nullable();
             $table->boolean('primary')->default(false);
-            $table->timestamp('verified_at')->nullable();
+            $table->dateTime('verified_at')->nullable();
+            $table->dateTime('undeliverable_at')->nullable(); // If email is undeliverable, need to change to update
             $table->timestamps();
         });
     }
