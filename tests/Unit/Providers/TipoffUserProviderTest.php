@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization\Tests\Unit\Providers;
 
-
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

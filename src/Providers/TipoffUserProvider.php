@@ -13,7 +13,6 @@ class TipoffUserProvider extends EloquentUserProvider
 {
     public function retrieveByCredentials(array $credentials)
     {
-
         if (empty($credentials) ||
             (count($credentials) === 1 &&
                 Str::contains($this->firstCredentialKey($credentials), 'password'))) {

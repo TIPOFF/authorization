@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization;
 
-use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
@@ -44,7 +43,6 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
         Auth::provider('tipoff', function ($app) {
             return new TipoffUserProvider($app->make('hash'), User::class);
         });
-
     }
 
     public function registeringPackage()
