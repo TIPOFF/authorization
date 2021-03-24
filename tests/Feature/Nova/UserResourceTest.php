@@ -15,7 +15,6 @@ class UserResourceTest extends TestCase
     /** @test */
     public function index()
     {
-        $this->logToStderr();
         User::factory()->count(4)->create();
 
         $this->actingAs(User::factory()->create()->assignRole('Admin'));
@@ -29,8 +28,6 @@ class UserResourceTest extends TestCase
     /** @test */
     public function show()
     {
-        $this->logToStderr();
-
         $user = User::factory()->create();
 
         $this->actingAs(User::factory()->create()->assignRole('Admin'));
