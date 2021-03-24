@@ -48,7 +48,6 @@ class User extends BaseModel implements UserInterface, CanResetPasswordContract,
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
-    use MustVerifyEmail;        // TODO - whoever is handling email verification needs to review inclusion of this trait
     use Notifiable;
     use HasRoles;
     use HasApiTokens;

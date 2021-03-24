@@ -34,7 +34,6 @@ class User extends BaseResource
         'id',
         'first_name',
         'last_name',
-        //  'email',    // TODO -- needs to be custom search since emails are no longer in users table
     ];
 
     public static $group = 'Access';
@@ -46,7 +45,7 @@ class User extends BaseResource
             Gravatar::make()->maxWidth(50),
             Text::make('First Name', 'first_name')->sortable(),
             Text::make('Last Name', 'last_name')->sortable(),
-            Text::make('Email')->sortable(),
+            Text::make('Email'),
         ];
     }
 
