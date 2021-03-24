@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tipoff\Authorization\Tests\Feature\Nova;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tipoff\Authorization\Models\EmailAddress;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Tests\TestCase;
-use Tipoff\Authorization\Models\EmailAddress;
 
 class EmailAddressResourceTest extends TestCase
 {
@@ -49,5 +49,4 @@ class EmailAddressResourceTest extends TestCase
             'No Role' => [null, false, false],
         ];
     }
-
 }
