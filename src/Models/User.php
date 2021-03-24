@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
@@ -21,14 +23,32 @@ use Tipoff\Support\Contracts\Payment\ChargeableInterface;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
-class User extends BaseModel implements UserInterface, ChargeableInterface
+/**
+ * @property int id
+ * @property string first_name
+ * @property string last_name
+ * @property string username
+ * @property string password
+ * @property string remember_token
+ * @property string bio
+ * @property string title
+ * @property string provider_name
+ * @property string provider_id
+ * @property string email
+ * @property Carbon|null email_verified_at
+ * @property Collection email_addresses
+ * @property Carbon deleted_at
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ */
+class User extends BaseModel implements UserInterface, CanResetPasswordContract, ChargeableInterface
 {
     use HasPackageFactory;
     use SoftDeletes;
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
-    use MustVerifyEmail;
+    use MustVerifyEmail;        // TODO - whoever is handling email verification needs to review inclusion of this trait
     use Notifiable;
     use HasRoles;
     use HasApiTokens;
@@ -36,10 +56,7 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
 
     protected $guarded = ['id'];
 
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = [];
 
     protected $hidden = [
         'password',
@@ -50,28 +67,26 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
     {
         parent::boot();
 
-        static::creating(function ($user) {
-            if (empty($user->password)) {
-                $user->password = bcrypt(Str::upper(Str::random(8)));
-            }
-            $user->generateUsername();
+        static::creating(function (User $user) {
+            $user->password = $user->password ?: bcrypt(Str::upper(Str::random(8)));
+            $user->username = $user->username ?: $user->generateUsername();
         });
     }
 
-    public function generateUsername()
+    private function generateUsername(): string
     {
         do {
             $generic = 'user' . Str::of(Carbon::now('America/New_York')->format('ymdB'))->substr(1, 7) . Str::lower(Str::random(6));
         } while (self::where('username', $generic)->first()); //check if the generated generic username already exists and if it does, try again
 
-        $this->username = $generic;
+        return $generic;
     }
-    
+
     public function emailAddresses()
     {
-        return $this->hasMany(app('email_addresses'));
+        return $this->hasMany(app('email_address'));
     }
-    
+
     // @todo create email function to return string of the primary email address for the user
 
     public function locations()
@@ -139,6 +154,22 @@ class User extends BaseModel implements UserInterface, ChargeableInterface
         $this->assignRole('Customer');
 
         return $this->customers()->create($attributes);
+    }
+
+    public function getEmailAttribute()
+    {
+        /** @var EmailAddress $emailAddress */
+        $emailAddress = $this->emailAddresses()->where('primary', 1)->first();
+
+        return $emailAddress ? $emailAddress->email : null;
+    }
+
+    public function getEmailVerifiedAtAttribute()
+    {
+        /** @var EmailAddress $emailAddress */
+        $emailAddress = $this->emailAddresses()->where('primary', 1)->first();
+
+        return $emailAddress ? $emailAddress->verified_at : null;
     }
 
     /**

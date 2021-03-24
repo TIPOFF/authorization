@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Tipoff\Authorization;
 
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Policies\PermissionPolicy;
 use Tipoff\Authorization\Policies\RolePolicy;
 use Tipoff\Authorization\Policies\UserPolicy;
+use Tipoff\Authorization\Providers\TipoffUserProvider;
 use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
@@ -32,6 +35,16 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
             ])
             ->name('authorization')
             ->hasConfigFile();
+    }
+
+    public function bootingPackage()
+    {
+        parent::bootingPackage();
+
+        Auth::provider('tipoff', function ($app) {
+            return new TipoffUserProvider($app->make('hash'), User::class);
+        });
+
     }
 
     public function registeringPackage()

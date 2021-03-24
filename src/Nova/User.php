@@ -34,7 +34,7 @@ class User extends BaseResource
         'id',
         'first_name',
         'last_name',
-        'email',
+        //  'email',    // TODO -- needs to be custom search since emails are no longer in users table
     ];
 
     public static $group = 'Access';
@@ -59,15 +59,12 @@ class User extends BaseResource
             Text::make('Last Name', 'last_name')
                 ->rules(['required', 'max:255']),
 
-            Text::make('Email')
-                ->rules(['required', 'email', 'max:254'])
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
             Gravatar::make()->maxWidth(50),
 
             Text::make('Bio'),
             Text::make('Title'),
+
+            HasMany::make('Email Addresses', 'emailAddresses', nova('email_address')),
 
             nova('location') ? BelongsToMany::make('Locations', 'locations', nova('location')) : null,
 
