@@ -110,3 +110,8 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.6.2 - 2021-03-22
 
 - enforce access admin permission during testing
+
+## 2.7.0 - 2021-03-24
+
+- drop email & verified field from user
+- user implements email address model
