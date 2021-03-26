@@ -115,3 +115,7 @@ All notable changes to `authorization` will be documented in this file.
 
 - drop email & verified field from user
 - user implements email address model
+
+## 2.7.1 - 2021-03-26
+
+- authenticatable email address
