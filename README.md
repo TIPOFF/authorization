@@ -25,8 +25,24 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 This is the contents of the published config file:
 
 ```php
-return [
-];
+    'guards' => [
+        // ...
+        'email' => [
+            'driver' => 'session',
+            'provider' => 'email',
+        ],
+        // ...
+   ],
+   // ...
+    'providers' => [
+        // ...
+        'email' => [
+            'driver' => 'eloquent',
+            'model' => Tipoff\Authorization\Models\EmailAddress::class,
+        ],
+        // ...
+   ],
+   // ...
 ```
 ## Models
 
