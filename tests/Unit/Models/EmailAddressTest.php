@@ -16,4 +16,18 @@ class EmailAddressTest extends TestCase
         $email = EmailAddress::factory()->create();
         $this->assertNotNull($email);
     }
+
+    /** @test */
+    public function act_as()
+    {
+        $email = EmailAddress::factory()->create();
+
+        $this->assertFalse($this->isAuthenticated('web'));
+        $this->assertFalse($this->isAuthenticated('email'));
+
+        $this->actingAs($email, 'email');
+
+        $this->assertFalse($this->isAuthenticated('web'));
+        $this->assertTrue($this->isAuthenticated('email'));
+    }
 }
