@@ -85,7 +85,14 @@ class User extends BaseModel implements UserInterface, CanResetPasswordContract,
         return $this->hasMany(app('email_address'));
     }
 
-    // @todo create email function to return string of the primary email address for the user
+    public function getPrimaryEmailAddress(): ?EmailAddress
+    {
+        // TODO - sorting by primary will ensure a primary address is returned when flagged, but also handle a missing flag
+        return $this->emailAddresses()
+            ->orderBy('primary', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->first();
+    }
 
     public function locations()
     {
@@ -156,16 +163,14 @@ class User extends BaseModel implements UserInterface, CanResetPasswordContract,
 
     public function getEmailAttribute()
     {
-        /** @var EmailAddress $emailAddress */
-        $emailAddress = $this->emailAddresses()->where('primary', 1)->first();
+        $emailAddress = $this->getPrimaryEmailAddress();
 
         return $emailAddress ? $emailAddress->email : null;
     }
 
     public function getEmailVerifiedAtAttribute()
     {
-        /** @var EmailAddress $emailAddress */
-        $emailAddress = $this->emailAddresses()->where('primary', 1)->first();
+        $emailAddress = $this->getPrimaryEmailAddress();
 
         return $emailAddress ? $emailAddress->verified_at : null;
     }
