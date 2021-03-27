@@ -16,13 +16,7 @@ composer require tipoff/authorization
 
 The migrations will run from the package. You can extend the Models from the package if you need additional classes or functions added to them.
 
-You can publish the config file with:
-```bash
-php artisan vendor:publish --provider="Tipoff\Authorization\AuthorizationServiceProvider" --tag="config"
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
+This package requires the following additions to your Laravel repo's config/auth.php
 
 ```php
     'guards' => [
@@ -44,6 +38,20 @@ This is the contents of the published config file:
    ],
    // ...
 ```
+
+You can publish the config file with:
+```bash
+php artisan vendor:publish --provider="Tipoff\Authorization\AuthorizationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
+```
+
+This is the contents of the published config file:
+
+```php
+return [
+];
+```
+
 ## Models
 
 We include the following models:
