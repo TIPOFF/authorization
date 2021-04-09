@@ -119,3 +119,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.7.1 - 2021-03-26
 
 - authenticatable email address
+
+## 2.8.0 - 2021-04-09
+
+- bump support dependencies
