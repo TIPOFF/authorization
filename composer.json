@@ -19,11 +19,11 @@
         "laravel/passport": "^10.1.3",
         "laravel/socialite": "^5.2.3",
         "spatie/laravel-permission": "^4.0.1",
-        "tipoff/support": "^1.8.9",
+        "tipoff/support": "^2.0.0",
         "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
-        "tipoff/test-support": "^1.4.2"
+        "tipoff/test-support": "^2.0.0"
     },
     "autoload": {
         "psr-4": {
