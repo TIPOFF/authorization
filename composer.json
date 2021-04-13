@@ -19,7 +19,7 @@
         "laravel/passport": "^10.1.3",
         "laravel/socialite": "^5.2.3",
         "spatie/laravel-permission": "^4.0.1",
-        "tipoff/support": "^2.0.0",
+        "tipoff/support": "^2.0.2",
         "vyuldashev/nova-permission": "^2.11"
     },
     "require-dev": {
