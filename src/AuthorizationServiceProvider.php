@@ -26,6 +26,7 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
             ])
             ->hasNovaResources([
                 \Tipoff\Authorization\Nova\User::class,
+                \Tipoff\Authorization\Nova\EmailAddress::class,
             ])
             ->hasNovaTools([
                 \Vyuldashev\NovaPermission\NovaPermissionTool::make()
