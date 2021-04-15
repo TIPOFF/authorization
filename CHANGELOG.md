@@ -127,3 +127,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.8.1 - 2021-04-14
 
 - register email address nova resource
+
+## 2.8.2 - 2021-04-15
+
+- helper trait to resolve email address for auth guards
