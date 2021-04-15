@@ -30,10 +30,15 @@ This package requires the following additions to your Laravel repo's config/auth
    // ...
     'providers' => [
         // ...
+        'users' => [
+            'driver' => 'tipoff',
+            'model' => Tipoff\Authorization\Models\User::class,
+        ],
+        // ...
         'email' => [
             'driver' => 'eloquent',
             'model' => Tipoff\Authorization\Models\EmailAddress::class,
-        ],
+        ],        
         // ...
    ],
    // ...
