@@ -22,4 +22,3 @@ class AuthController extends BaseController
         return redirect()->intended();
     }
 }
-
