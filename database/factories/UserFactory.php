@@ -41,4 +41,29 @@ class UserFactory extends Factory
             'remember_token'        => Str::random(10),
         ];
     }
+
+    /**
+     * Assign a user as an admin
+     *
+     * @return UserFactory
+     */
+    public function admin()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Admin');
+        });
+    }
+
+    /**
+     * Assign a user based on a role input
+     *
+     * @param string $role
+     * @return UserFactory
+     */
+    public function role($role)
+    {
+        return $this->afterCreating(function (User $user) use($role) {
+            $user->assignRole($role);
+        });
+    }
 }

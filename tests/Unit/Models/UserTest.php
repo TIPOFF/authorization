@@ -47,4 +47,28 @@ class UserTest extends TestCase
 
         $this->assertNotNull($user->deleted_at);
     }
+
+    /** @test */
+    public function factory_admin_state()
+    {
+        $admin = User::factory()->admin()->create();
+        $this->assertTrue($admin->hasRole('Admin'));
+    }
+
+    /** @test */
+    public function factory_role_state()
+    {
+        $roles = [
+            'Admin',
+            'Owner',
+            'Executive',
+            'Staff',
+            'Former Staff',
+            'Customer',
+        ];
+        foreach ($roles as $role) {
+            $user = User::factory()->role($role)->create();
+            $this->assertTrue($user->hasRole($role));
+        }
+    }
 }
