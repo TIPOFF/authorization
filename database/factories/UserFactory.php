@@ -62,7 +62,7 @@ class UserFactory extends Factory
      */
     public function role($role)
     {
-        return $this->afterCreating(function (User $user) use($role) {
+        return $this->afterCreating(function (User $user) use ($role) {
             $user->assignRole($role);
         });
     }
