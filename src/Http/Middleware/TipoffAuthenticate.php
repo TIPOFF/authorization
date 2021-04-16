@@ -21,10 +21,11 @@ class TipoffAuthenticate extends Authenticate
     protected function redirectTo($request)
     {
         if (in_array('email', $this->guards)) {
+            // Email only login is allowable
             return route('authorization.email-login');
         }
 
-        // TODO - change to regular user login route, view & controller when available
-        return route('authorization.email-login');
+        // Full login required
+        return route('authorization.login');
     }
 }
