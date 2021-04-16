@@ -20,7 +20,7 @@ class EmailAuthenticationController extends BaseController
     {
         /** @var EmailAddress $emailAddress */
         $emailAddress = EmailAddress::query()->firstOrCreate([
-            'email' => trim(strtolower($request->email))
+            'email' => trim(strtolower($request->email)),
         ]);
         Auth::guard('email')->login($emailAddress);
 
