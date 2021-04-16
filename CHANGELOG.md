@@ -135,3 +135,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.8.3 - 2021-04-16
 
 - factory states for adding user roles
+
+## 2.8.4 - 2021-04-16
+
+- routes, controllers & views for login
