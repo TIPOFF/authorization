@@ -33,7 +33,9 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
                     ->rolePolicy(RolePolicy::class)
                     ->permissionPolicy(PermissionPolicy::class),
             ])
+            ->hasWebRoute('web')
             ->name('authorization')
+            ->hasViews()
             ->hasConfigFile();
     }
 
