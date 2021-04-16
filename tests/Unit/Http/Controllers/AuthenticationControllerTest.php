@@ -8,8 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Auth;
 use Tipoff\Authorization\Models\EmailAddress;
 use Tipoff\Authorization\Models\User;
+use Tipoff\Authorization\Tests\TestCase;
 
-class AuthenticationControllerTest extends ControllerTestCase
+class AuthenticationControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
