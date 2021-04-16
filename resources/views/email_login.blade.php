@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>CREATE</h2>
-    @include('authorization::partials._errors')
+    @include('support::partials._errors')
 
     <form method="POST" action="{{ route('authorization.email-login') }}">
         @csrf
