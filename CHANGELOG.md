@@ -143,3 +143,7 @@ All notable changes to `authorization` will be documented in this file.
 ## 2.8.5 - 2021-04-16
 
 - authorizable email address
+
+## 2.8.6 - 2021-04-20
+
+- email address contract
