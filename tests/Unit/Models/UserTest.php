@@ -5,7 +5,6 @@ namespace Tipoff\Authorization\Tests\Unit\Models;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Tests\TestCase;
-use Tipoff\Locations\Models\Location;
 
 class UserTest extends TestCase
 {
