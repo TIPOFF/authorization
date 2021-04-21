@@ -37,10 +37,12 @@ class TipoffUserProviderTest extends TestCase
     {
         return [
             [ ['username' => 'username', 'password' => 'password'], true, ],
+            [ ['username' => ['username'], 'password' => 'password'], true, ],
             [ ['username' => 'badname', 'password' => 'password'], false, ],
             [ ['username' => 'username', 'password' => 'badpass'], false, ],
             [ ['username' => 'badname', 'password' => 'badpass'], false, ],
             [ ['email' => 'test@test.com', 'password' => 'password'], false, ],
+            [ [], false, ],
         ];
     }
 
@@ -112,6 +114,8 @@ class TipoffUserProviderTest extends TestCase
             [ ['email' => 'test1@test.com', 'password' => 'badpass'], false, ],
             [ ['email' => 'test2@test.com', 'password' => 'badpass'], false, ],
             [ ['email' => 'bad@test.com', 'password' => 'badpass'], false, ],
+            [ ['email' => ['test1@test.com', 'test2@test.com'], 'password' => 'password' ], true ],
+            [ ['email' => ['test1@example.com', 'test2@example.com'], 'password' => 'password' ], false ],
             [ ['username' => 'username', 'password' => 'password'], true, ],
             [ ['username' => 'badname', 'password' => 'password'], false, ],
         ];

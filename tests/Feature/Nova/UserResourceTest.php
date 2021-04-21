@@ -11,9 +11,9 @@ use Tipoff\Authorization\Tests\TestCase;
 class UserResourceTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     private const NOVA_ROUTE = 'nova-api/users';
-    
+
     /**
      * @dataProvider dataProviderForIndexByRole
      * @test
