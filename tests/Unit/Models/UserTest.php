@@ -3,8 +3,11 @@
 namespace Tipoff\Authorization\Tests\Unit\Models;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Mockery\MockInterface;
+use Tipoff\Authorization\Models\EmailAddress;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Tests\TestCase;
+use Tipoff\Support\Contracts\Checkout\CartInterface;
 
 class UserTest extends TestCase
 {
@@ -47,4 +50,38 @@ class UserTest extends TestCase
 
         $this->assertNotNull($user->deleted_at);
     }
+
+    /** @test */
+    public function get_cart_return_null()
+    {
+        $user = User::factory()->create();
+
+        $this->assertNull($user->cart());
+    }
+
+    /** @test */
+    public function get_cart()
+    {
+        $this->partialMock(CartInterface::class, function(MockInterface $mock) {
+            $mock->shouldReceive('activeCart')
+                    ->andReturn($mock);
+        });
+
+        $user = User::factory()->create();
+
+        $this->assertInstanceOf(CartInterface::class, $user->cart());
+    }
+
+    /** @test */
+    public function get_email_verified_at_attribute()
+    {
+        $user = User::factory()->create();
+
+        $emailAddress = EmailAddress::factory()->verified()->create([
+            'user_id' => $user,
+        ]);
+
+        $this->assertEquals($emailAddress->verified_at, $user->getEmailVerifiedAtAttribute());
+    }
 }
+
