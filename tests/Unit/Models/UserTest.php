@@ -62,7 +62,7 @@ class UserTest extends TestCase
     /** @test */
     public function get_cart()
     {
-        $this->partialMock(CartInterface::class, function(MockInterface $mock) {
+        $this->partialMock(CartInterface::class, function (MockInterface $mock) {
             $mock->shouldReceive('activeCart')
                     ->andReturn($mock);
         });
@@ -84,4 +84,3 @@ class UserTest extends TestCase
         $this->assertEquals($emailAddress->verified_at, $user->getEmailVerifiedAtAttribute());
     }
 }
-
