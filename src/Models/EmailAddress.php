@@ -6,7 +6,8 @@ namespace Tipoff\Authorization\Models;
 
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Tipoff\Support\Contracts\Authorization\EmailAddressInterface;
 use Tipoff\Support\Models\BaseModel;
 use Tipoff\Support\Traits\HasPackageFactory;
 
@@ -21,10 +22,11 @@ use Tipoff\Support\Traits\HasPackageFactory;
  * @property Carbon created_at
  * @property Carbon updated_at
  */
-class EmailAddress extends BaseModel implements AuthenticatableContract
+class EmailAddress extends BaseModel implements EmailAddressInterface
 {
     use HasPackageFactory;
     use Authenticatable;
+    use Authorizable;
 
     protected $casts = [
         'verified_at' => 'datetime',

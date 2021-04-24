@@ -7,11 +7,13 @@ namespace Tipoff\Authorization;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
+use Tipoff\Authorization\Models\EmailAddress;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Authorization\Policies\PermissionPolicy;
 use Tipoff\Authorization\Policies\RolePolicy;
 use Tipoff\Authorization\Policies\UserPolicy;
 use Tipoff\Authorization\Providers\TipoffUserProvider;
+use Tipoff\Support\Contracts\Authorization\EmailAddressInterface;
 use Tipoff\Support\Contracts\Models\UserInterface;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
@@ -33,7 +35,13 @@ class AuthorizationServiceProvider extends TipoffServiceProvider
                     ->rolePolicy(RolePolicy::class)
                     ->permissionPolicy(PermissionPolicy::class),
             ])
+            ->hasModelInterfaces([
+                EmailAddressInterface::class => EmailAddress::class,
+                UserInterface::class => User::class,
+            ])
+            ->hasWebRoute('web')
             ->name('authorization')
+            ->hasViews()
             ->hasConfigFile();
     }
 
