@@ -47,6 +47,8 @@ class UserPolicyTest extends TestCase
             'update-false' => [ 'update', self::createPermissionedUser('update users', false), false ],
             'delete-true' => [ 'delete', self::createPermissionedUser('delete users', true), false ],
             'delete-false' => [ 'delete', self::createPermissionedUser('delete users', false), false ],
+            'force-delete-true' => [ 'forceDelete', self::createPermissionedUser('force delete users', false), false ],
+            'force-delete-false' => [ 'forceDelete', self::createPermissionedUser('force delete users', false), false ],
         ];
     }
 
