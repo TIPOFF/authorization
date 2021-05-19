@@ -20,7 +20,7 @@ class EmailAddress extends BaseResource
     public static $title = 'email';
 
     public static $search = [
-        'id', 'email'
+        'id', 'email',
     ];
 
     public static $group = 'Resources';
