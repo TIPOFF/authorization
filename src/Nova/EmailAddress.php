@@ -20,9 +20,9 @@ class EmailAddress extends BaseResource
     public static $title = 'email';
 
     public static $search = [
-        'id',
+        'id', 'email'
     ];
-    
+
     public static $group = 'Resources';
 
     public function fieldsForIndex(NovaRequest $request)
