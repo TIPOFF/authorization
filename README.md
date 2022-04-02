@@ -8,6 +8,8 @@ This is where your description should go.
 
 ## Installation
 
+Before installing the package, you must first [install Laravel Nova](https://github.com/laravel/nova-docs/blob/master/3.0/installation.md#installing-nova-via-composer).
+
 You can install the package via composer:
 
 ```bash
