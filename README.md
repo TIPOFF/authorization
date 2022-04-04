@@ -4,7 +4,7 @@
 ![Tests](https://github.com/tipoff/authorization/workflows/Tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/tipoff/authorization.svg?style=flat-square)](https://packagist.org/packages/tipoff/authorization)
 
-This is where your description should go.
+This Laravel package contains an opinionated implementation of Authorization allowing users to have multiple email addresses and unique usernames.
 
 ## Installation
 
@@ -46,18 +46,7 @@ This package requires the following additions to your Laravel repo's config/auth
    // ...
 ```
 
-You can publish the config file with:
-```bash
-php artisan vendor:publish --provider="Tipoff\Authorization\AuthorizationServiceProvider" --tag="config"
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
+For developing Laravel applications, it is recommended to create a migration with an admin user.
 
 ## Models
 
