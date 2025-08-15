@@ -6,6 +6,12 @@
 
 This Laravel package contains an opinionated implementation of Authorization allowing users to have multiple email addresses and unique usernames.
 
+## Deprecated / Archived
+
+This is a pain to keep updated so I am removing it as a dependency from other packages & so they can stand better in isolation & be updated faster to new versions of Laravel.
+
+This is where the description should go of what all needs to be removed in the other packages that contain this dependency.
+
 ## Installation
 
 Before installing the package, you must first [install Laravel Nova](https://github.com/laravel/nova-docs/blob/master/3.0/installation.md#installing-nova-via-composer).
